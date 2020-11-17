@@ -1,0 +1,17 @@
+<nav class="animated fadeIn fast">
+
+  <div class="nav-logo">
+      <img src="assets/img/icon.png" width="40" height="40" alt="documentos online">
+  </div>
+
+  <ul class="navbar-options">
+    <li class="nav-item action" routerLinkActive="active"><p class="nav-link">Documentos</p>
+      <ul class="dropdown animated fadeIn">
+        <li><a [routerLink]="['/buscar']">Buscar</a></li>
+        <li><a [routerLink]="['/agregar']">Agregar</a></li>
+      </ul>
+    </li>
+    <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/sectores']">Sectores</a></li>
+    <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/empresas']">Empresas</a></li>
+  </ul>
+</nav>

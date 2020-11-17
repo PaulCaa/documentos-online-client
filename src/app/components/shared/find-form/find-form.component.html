@@ -1,0 +1,14 @@
+<div class="form-container form-group">
+    <h2>Buscar Documentos</h2>
+    <hr>
+    <form class="form" [formGroup]="findDocumentForm">
+        <input type="text" class="input" formControlName="docNumber" placeholder="Número del documento">
+        <input type="text" class="input" formControlName="date" placeholder="Fecha">
+        <input type="text" class="input" formControlName="company" placeholder="Empresa">
+        <input type="text" class="input" formControlName="sector" placeholder="Sector">
+        <div class="form-buttons">
+            <button type="button" (click)="findDocument()">Buscar</button>
+            <button type="button" (click)="resetForm()">Limpiar</button>
+        </div>
+    </form>
+</div>
