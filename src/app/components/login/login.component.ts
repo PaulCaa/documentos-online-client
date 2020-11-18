@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { LoginResponse } from './../../models/rest/login-response';
-import { HeaderInterface } from 'src/app/models/rest/header.interface';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +11,8 @@ import { HeaderInterface } from 'src/app/models/rest/header.interface';
 })
 export class LoginComponent implements OnInit {
   
-  public loginState: boolean = true;
+  public loginFail: boolean = false;
   public loginForm: FormGroup;
-  private header: HeaderInterface;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,7 +37,9 @@ export class LoginComponent implements OnInit {
     .subscribe(result => {
       let response: LoginResponse = result;
       if(response.header.resultCode.toLocaleLowerCase() == 'ok') {
-        this.router.navigate(['buscar']);
+        this.router.navigate(['documentos']);
+      } else {
+        this.loginFail = true;
       }
     },
       error => console.error(error)

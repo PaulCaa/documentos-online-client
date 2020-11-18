@@ -1,4 +1,63 @@
 <app-navbar></app-navbar>
 <div class="container animated fadeIn fast">
-    <app-find-form></app-find-form>
+    
+    <div class="form-container">
+        
+        <form class="form" [formGroup]="findDocumentForm">
+            <h2>Buscar Documentos</h2>
+            <hr>
+            <input type="text" class="input" formControlName="numero" placeholder="Número del documento">
+            <input type="text" class="input" formControlName="fecha" placeholder="Fecha">
+            <input type="text" class="input" formControlName="empresa" placeholder="Empresa">
+            <input type="text" class="input" formControlName="sector" placeholder="Sector">
+            <div class="form-buttons">
+                <button type="button" (click)="findDocument()">Buscar</button>
+                <button type="button" (click)="resetForm()">Limpiar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="result-container">
+
+        <h2>Resultados</h2>
+        
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>Número Documento</td>
+                <td>Fecha</td>
+                <td>Empresa</td>
+                <td>Sector</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody *ngFor="let d of results">
+              <tr>
+                <td>{{ d.documentoId }}</td>
+                <td>{{ d.numero }}</td>
+                <td>{{ d.fecha }}</td>
+                <td>{{ d.empresa }}</td>
+                <td>{{ d.sector }}</td>
+                <td>
+                    <button class="tbl-btn info" (click)="view(d)"><i class="fas fa-eye"></i> Ver</button>
+                    <button class="tbl-btn danger" (click)="deleteDocument(d.numero)"><i class="fas fa-times"></i> Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="emptyMessage">
+                <tr>
+                    <td></td> 
+                    <td></td> 
+                    <td>Sin resultados</td> 
+                    <td></td> 
+                    <td></td> 
+                    <td></td> 
+                 </tr>
+            </tbody>
+          </table>
+        </div>
+    
+    </div>
 </div>

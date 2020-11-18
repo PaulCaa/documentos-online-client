@@ -7,12 +7,12 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { SectorsComponent } from './components/sectors/sectors.component';
 import { CompanyComponent } from './components/company/company.component';
-import { FindFormComponent } from './components/shared/find-form/find-form.component';
 import { AddFormComponent } from './components/shared/add-form/add-form.component';
 import { FindDocumentComponent } from './components/find-document/find-document.component';
 import { AddDocumentComponent } from './components/add-document/add-document.component';
 import { LoginComponent } from './components/login/login.component';
 import { APP_ROUTING } from './app.routes';
+import { DocumentViewComponent } from './components/document-view/document-view.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +20,11 @@ import { APP_ROUTING } from './app.routes';
     NavbarComponent,
     SectorsComponent,
     CompanyComponent,
-    FindFormComponent,
     AddFormComponent,
     FindDocumentComponent,
     AddDocumentComponent,
-    LoginComponent
+    LoginComponent,
+    DocumentViewComponent
   ],
   imports: [
     BrowserModule,

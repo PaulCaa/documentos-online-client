@@ -4,11 +4,13 @@ import { CompanyComponent } from './components/company/company.component';
 import { FindDocumentComponent } from './components/find-document/find-document.component';
 import { AddDocumentComponent } from './components/add-document/add-document.component';
 import { LoginComponent } from './components/login/login.component';
+import { DocumentViewComponent } from './components/document-view/document-view.component';
 
 const APP_ROUTES: Routes = [
     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'buscar', component: FindDocumentComponent },
+    { path: 'documentos', component: FindDocumentComponent },
+    { path: 'vista', component: DocumentViewComponent },
     { path: 'agregar', component: AddDocumentComponent },
     { path: 'sectores', component: SectorsComponent },
     { path: 'empresas', component: CompanyComponent },

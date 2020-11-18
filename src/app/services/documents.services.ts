@@ -1,30 +1,47 @@
 import { Injectable } from '@angular/core';
-import { DocumentInterface } from '../models/document.interface';
+import { HttpClient } from '@angular/common/http';
 import { DocumentResponse } from '../models/rest/document-response';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DocumentResponseInterface } from '../models/rest/document-response.interface';
+import { DocumentInterface } from '../models/document.interface';
 
 @Injectable({providedIn: 'root'})
 export class DocumentsService {
 
     private BASE_URL:string = 'http://localhost:5000/api/documentos/';
+    private document: DocumentInterface;
 
     constructor(
         private httpClient: HttpClient
     ) {}
 
-    find(docNumber: string): Observable<DocumentResponseInterface> {
+    find(docNumber: string): Observable<DocumentResponse> {
         const url = this.BASE_URL + 'get/';
         const headers = {
             'Accept': 'application/json',
-            'empresa': '1',
-            'sector': '3',
             'Access-Control-Allow-Origin': 'http://localhost:5000',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
         }
-        console.log(url + 'get/' + docNumber);
-        return this.httpClient.get<DocumentResponseInterface>(url + docNumber,{headers});
+        console.log(url + docNumber);
+        return this.httpClient.get<DocumentResponse>(url + docNumber,{headers});
 
+    }
+
+    delete(docNumber: number): Observable<DocumentResponse> {
+        const url = this.BASE_URL + docNumber;
+        const headers = {
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': 'http://localhost:5000',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+        }
+        console.log(url);
+        return this.httpClient.delete<DocumentResponse>(url,{headers});
+    }
+
+    setDocument(doc: DocumentInterface) {
+        this.document = doc;
+    }
+
+    getDocument(): DocumentInterface {
+        return this.document;
     }
 }

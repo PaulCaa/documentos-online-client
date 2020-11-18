@@ -64,3 +64,13 @@
 .login-area button:hover{
     background-color: #404355;
 }
+
+.login-error {
+    font-size: 14px;
+    text-align: center;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    border-radius: 3px;
+}
