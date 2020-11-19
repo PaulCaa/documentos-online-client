@@ -5,21 +5,23 @@
         
         <form class="form" [formGroup]="findDocumentForm">
             <h2>Buscar Documentos</h2>
-            <hr>
-            <input type="text" class="input" formControlName="numero" placeholder="Número del documento">
-            <input type="text" class="input" formControlName="fecha" placeholder="Fecha">
-            <input type="text" class="input" formControlName="empresa" placeholder="Empresa">
-            <input type="text" class="input" formControlName="sector" placeholder="Sector">
+            <div class="inputs">
+              <input type="text" formControlName="numero" placeholder="Número del documento">
+              <input type="text" formControlName="fecha" placeholder="Fecha">
+              <input type="text" formControlName="empresa" placeholder="Empresa">
+              <input type="text" formControlName="sector" placeholder="Sector">
+            </div>
             <div class="form-buttons">
                 <button type="button" (click)="findDocument()">Buscar</button>
                 <button type="button" (click)="resetForm()">Limpiar</button>
             </div>
         </form>
+        <div class="add-container"><button type="button" (click)="addDocument()"><i class="fas fa-arrow-up"></i> Subir Documento</button></div>
     </div>
 
     <div class="result-container">
 
-        <h2>Resultados</h2>
+        <h3>Resultados</h3>
         
         <div class="table-wrapper">
           <table>

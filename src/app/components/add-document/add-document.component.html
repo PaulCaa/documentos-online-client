@@ -1,4 +1,23 @@
 <app-navbar></app-navbar>
 <div class="container animated fadeIn fast">
-    <app-add-form></app-add-form>
+
+    <div class="form-container">
+        <form class="form" [formGroup]="addDocumentForm">
+            <h2>Agregar Documento</h2>
+            <div class="inputs">
+                <input type="text" formControlName="numero" placeholder="Número del documento">
+                <input type="text" formControlName="imagen" placeholder="Ubicacion del archivo">
+                <input type="text" formControlName="empresa" placeholder="Empresa">
+                <input type="text" formControlName="sector" placeholder="Sector">
+            </div>
+            <div class="form-buttons">
+                <button class="primary" type="button" (click)="send()">Subir</button>
+                <div class="midd-btn">
+                    <button class="secundary" type="button" (click)="resetForm()">Limpiar</button>
+                    <button class="secundary" type="button" (click)="cancel()">Cancelar</button>
+                </div>
+            </div>
+          </form>
+      </div>
+
 </div>

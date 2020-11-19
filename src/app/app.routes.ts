@@ -11,7 +11,7 @@ const APP_ROUTES: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'documentos', component: FindDocumentComponent },
     { path: 'vista', component: DocumentViewComponent },
-    { path: 'agregar', component: AddDocumentComponent },
+    { path: 'documentos/agregar', component: AddDocumentComponent },
     { path: 'sectores', component: SectorsComponent },
     { path: 'empresas', component: CompanyComponent },
     { path: '**', pathMatch: 'full', redirectTo: 'login'}

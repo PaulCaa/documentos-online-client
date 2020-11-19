@@ -60,6 +60,10 @@ export class FindDocumentComponent implements OnInit {
     this.router.navigate(['vista']);
   }
 
+  addDocument() {
+    this.router.navigate(['documentos/agregar']);
+  }
+
   resetForm() {
     this.findDocumentForm.reset();
   }
