@@ -6,10 +6,23 @@
         <form class="form" [formGroup]="findDocumentForm">
             <h2>Buscar Documentos</h2>
             <div class="inputs">
-              <input type="text" formControlName="numero" placeholder="Número del documento">
-              <input type="text" formControlName="fecha" placeholder="Fecha">
-              <input type="text" formControlName="empresa" placeholder="Empresa">
-              <input type="text" formControlName="sector" placeholder="Sector">
+              
+              <fieldset>
+                <div class="form-group" [ngClass]="{'has-error': (
+                  findDocumentForm.get('numero').touched ||
+                  findDocumentForm.get('numero').dirty &&
+                  !findDocumentForm.get('numero').valid
+                )}">
+                  <input type="text" id="numero" formControlName="numero" placeholder="Número del documento" required>
+                  <div *ngIf="(findDocumentForm.get('numero').touched || findDocumentForm.get('numero').dirty && !findDocumentForm.get('numero').valid)">
+                    <span class="input-error" *ngIf="findDocumentForm.get('numero').errors?.required">El campo es requerido</span>
+                  </div>
+                </div>
+                
+                <input type="text" formControlName="fecha" placeholder="Fecha">
+                <input type="text" formControlName="empresa" placeholder="Empresa">
+                <input type="text" formControlName="sector" placeholder="Sector">
+              </fieldset>
             </div>
             <div class="form-buttons">
                 <button type="button" (click)="findDocument()">Buscar</button>

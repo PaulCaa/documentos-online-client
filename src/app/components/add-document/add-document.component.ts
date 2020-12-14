@@ -25,7 +25,7 @@ export class AddDocumentComponent implements OnInit {
     });
   }
 
-  send() {
+  save() {
 
   }
 

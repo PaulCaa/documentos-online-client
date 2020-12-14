@@ -10,7 +10,7 @@
     width: 600px;
     margin: auto;
 }
-.form {
+.form-add {
     display: flex;
     flex-direction: column;
     width: 450px;
@@ -49,12 +49,19 @@ form input {
     border-bottom: 0.5px solid #E0E0E0;
     margin: 7px 0;
 }
-form .input:focus {
+form input:focus {
     outline: none;
+    color: black;
+    border-bottom: 0.5px solid #5a5a5a;
 }
+
 .form-buttons{
     flex-direction: column;
     padding: 15px 0;
+}
+
+form button:focus {
+    outline: none;
 }
 .primary{
     width: 100%;
@@ -68,7 +75,7 @@ form .input:focus {
     cursor: pointer;
     transition: 0.3s;
 }
-.primary:hover {
+.primary:hover, .primary:focus {
     background-color: #404355;
 }
 
@@ -88,6 +95,6 @@ form .input:focus {
     cursor: pointer;
     transition: 0.3s;
 }
-.secundary:hover {
+.secundary:hover,.secundary:focus {
     background-color: #a32834;
 }
