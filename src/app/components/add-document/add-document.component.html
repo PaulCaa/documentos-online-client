@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+<div class="container animated fadeIn fast">
+
+    <div class="form-container">
+        <form class="form-add" [formGroup]="addDocumentForm" (ngSubmit)="save()">
+            <h2>Agregar Documento</h2>
+            
+            <fieldset>
+                <div class="inputs">
+                    <div class="form-group" [ngClass]="{'has-error': (
+                        addDocumentForm.get('numero').touched ||
+                        addDocumentForm.get('numero').dirty &&
+                        !addDocumentForm.get('numero').valid
+                      )}">
+                        <input type="text" id="numero" formControlName="numero" placeholder="Número del documento" required>
+                        <div *ngIf="(addDocumentForm.get('numero').touched || addDocumentForm.get('numero').dirty && !addDocumentForm.get('numero').valid)">
+                          <span class="input-error" *ngIf="addDocumentForm.get('numero').errors?.required">El campo es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (
+                        addDocumentForm.get('imagen').touched ||
+                        addDocumentForm.get('imagen').dirty &&
+                        !addDocumentForm.get('imagen').valid
+                      )}">
+                        <input type="text" id="imagen" formControlName="imagen" placeholder="Ubicacion del archivo" required> 
+                        <div *ngIf="(addDocumentForm.get('imagen').touched || addDocumentForm.get('imagen').dirty && !addDocumentForm.get('imagen').valid)">
+                            <span class="input-error" *ngIf="addDocumentForm.get('imagen').errors?.required">El campo es requerido</span>
+                          </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (
+                        addDocumentForm.get('empresa').touched ||
+                        addDocumentForm.get('empresa').dirty &&
+                        !addDocumentForm.get('empresa').valid
+                      )}">
+                        <input type="text" id="empresa" formControlName="empresa" placeholder="Empresa" required>
+                        <div *ngIf="(addDocumentForm.get('empresa').touched || addDocumentForm.get('empresa').dirty && !addDocumentForm.get('empresa').valid)">
+                            <span class="input-error" *ngIf="addDocumentForm.get('empresa').errors?.required">El campo es requerido</span>
+                          </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (
+                        addDocumentForm.get('sector').touched ||
+                        addDocumentForm.get('sector').dirty &&
+                        !addDocumentForm.get('sector').valid
+                      )}">
+                        <input type="text" id="sector" formControlName="sector" placeholder="Sector" required>
+                        <div *ngIf="(addDocumentForm.get('sector').touched || addDocumentForm.get('sector').dirty && !addDocumentForm.get('sector').valid)">
+                          <span class="input-error" *ngIf="addDocumentForm.get('sector').errors?.required">El campo es requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-buttons">
+                <button class="primary" type="button" (click)="save()">Subir</button>
+                <div class="midd-btn">
+                    <button class="secundary" type="button" (click)="resetForm()">Limpiar</button>
+                    <button class="secundary" type="button" (click)="cancel()">Cancelar</button>
+                </div>
+            </div>
+          </form>
+      </div>
+
+</div>

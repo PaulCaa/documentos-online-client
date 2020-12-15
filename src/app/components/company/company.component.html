@@ -1,0 +1,15 @@
+<app-navbar></app-navbar>
+<div class="container animated fadeIn fast">
+
+    <h2>Empresas</h2>
+    <div class="list-container">
+        <div class="card" *ngFor="let comp of companies">
+            <h3><strong>{{ comp.empresaId }} </strong>{{ comp.nombre }}</h3>
+            <div class="data">
+                <p><strong>Direccion: </strong>{{ comp.direccion}}</p>
+                <p><strong>Telefono: </strong> {{ comp.telefono }}</p>
+                <p><strong>Web: </strong> {{ comp.web }}</p>
+            </div>
+        </div>
+    </div>
+</div>

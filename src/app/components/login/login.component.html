@@ -1,0 +1,15 @@
+<div class="login-container animated fadeIn fast">
+  
+  <div class="login-area">
+    <form class="animated fadeIn" [formGroup]="loginForm">
+      <h1>Login</h1>
+      <input class="input" type="text" formControlName="username" placeholder="Ingrese usuario">
+      <input class="input" type="password" formControlName="password" placeholder="Ingrese contraseña">
+      <button (click)='login()'>Ingresar</button>
+      <div *ngIf="loginFail" class="login-error">Usuario o contraseña invalida</div>
+    </form>
+  </div>
+    
+  <img src="assets/img/login.jpg" alt="">
+    
+</div>
