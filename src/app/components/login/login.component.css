@@ -47,7 +47,9 @@
 }
 .input:focus{
     outline: none;
+    border-bottom: 1px solid #505050;
 }
+
 .login-area button{
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -59,9 +61,12 @@
     margin: 15px auto;
     cursor: pointer;
     transition: .3s;
-}
-  
+}  
 .login-area button:hover{
+    background-color: #404355;
+}
+.login-area button:focus{
+    outline: none;
     background-color: #404355;
 }
 

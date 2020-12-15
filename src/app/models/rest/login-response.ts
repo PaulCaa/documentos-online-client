@@ -4,5 +4,5 @@ import { ResponseInterface } from './response.interface';
 
 export class LoginResponse implements ResponseInterface {
     header: HeaderInterface;
-    data?: UserInterface[];
+    data?: any[];
 }

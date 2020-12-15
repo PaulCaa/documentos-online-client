@@ -3,10 +3,12 @@ import {Md5} from 'ts-md5/dist/md5';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginResponse } from './../models/rest/login-response';
 import { Observable } from 'rxjs';
+import { UserInterface } from '../models/user.interface';
 
 @Injectable({providedIn: 'root'})
 export class LoginService {
 
+    public usuario:Observable<UserInterface>;
     private BASE_URL:string = 'http://localhost:5000/api/login/';
 
     constructor(
@@ -18,17 +20,16 @@ export class LoginService {
         let hashPwd = md5.appendStr(pwd).end();
         const headers = {
             'Accept': 'application/json',
-            'empresa': '1',
-            'sector': '3',
             'Access-Control-Allow-Origin': 'http://localhost:5000',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
         }
         console.log(this.BASE_URL);
         const req = {
-            'UsuarioId': user,
-            'HashPwd': hashPwd
+            'User': user,
+            'Password': hashPwd
         }
         console.log(req);
         return this.httpClient.post<LoginResponse>(this.BASE_URL,req, {headers});
     }
+
 }
