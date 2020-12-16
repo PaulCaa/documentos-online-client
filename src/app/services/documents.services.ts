@@ -37,6 +37,22 @@ export class DocumentsService {
         return this.httpClient.delete<DocumentResponse>(url,{headers});
     }
 
+    insert(document: DocumentInterface): Observable<DocumentResponse> {
+        //const url = this.BASE_URL + 'empresa/' + document.idCompany + '/sector/' + document.idSector;
+        const url = this.BASE_URL + 'empresa/' + document.empresa + '/sector/' + document.sector;
+        const headers = {
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': 'http://localhost:5000',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+        }
+        console.log(url);
+        let body = {
+            numero: document.numero,
+            imgPath: document.imgPath
+        }
+        return this.httpClient.post<DocumentResponse>(url,body,{headers});
+    }
+
     setDocument(doc: DocumentInterface) {
         this.document = doc;
     }
