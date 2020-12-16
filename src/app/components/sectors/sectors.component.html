@@ -1,4 +1,14 @@
 <app-navbar></app-navbar>
 <div class="container animated fadeIn fast">
-    
+    <h2>{{ userCompany }} - Sectores</h2>
+
+    <div class="sectors">
+        
+        <div class="card" *ngFor="let sec of sectors">
+            <h3>{{ sec.nombre }}</h3>
+            <p>ID: {{ sec.sectorId }}</p>
+        </div>
+
+    </div>
+
 </div>

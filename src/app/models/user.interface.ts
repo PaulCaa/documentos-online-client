@@ -5,5 +5,6 @@ export interface UserInterface {
     email?: string,
     hashPwd: string,
     idCompany?: number,
-    nameCompany?: string
+    nameCompany?: string,
+    token?: string
 }

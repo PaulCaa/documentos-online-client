@@ -19,13 +19,13 @@
                     </div>
 
                     <div class="form-group" [ngClass]="{'has-error': (
-                        addDocumentForm.get('imagen').touched ||
-                        addDocumentForm.get('imagen').dirty &&
-                        !addDocumentForm.get('imagen').valid
+                        addDocumentForm.get('imgPath').touched ||
+                        addDocumentForm.get('imgPath').dirty &&
+                        !addDocumentForm.get('imgPath').valid
                       )}">
-                        <input type="text" id="imagen" formControlName="imagen" placeholder="Ubicacion del archivo" required> 
-                        <div *ngIf="(addDocumentForm.get('imagen').touched || addDocumentForm.get('imagen').dirty && !addDocumentForm.get('imagen').valid)">
-                            <span class="input-error" *ngIf="addDocumentForm.get('imagen').errors?.required">El campo es requerido</span>
+                        <input type="text" id="imgPath" formControlName="imgPath" placeholder="Ubicacion del archivo" required> 
+                        <div *ngIf="(addDocumentForm.get('imgPath').touched || addDocumentForm.get('imgPath').dirty && !addDocumentForm.get('imgPath').valid)">
+                            <span class="input-error" *ngIf="addDocumentForm.get('imgPath').errors?.required">El campo es requerido</span>
                           </div>
                     </div>
 
