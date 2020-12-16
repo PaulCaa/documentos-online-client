@@ -49,6 +49,7 @@ form input {
 }
 form input:focus {
     outline: none;
+    border-bottom: 0.5px solid #505050;
 }
 
 .form-buttons {
@@ -70,6 +71,10 @@ form input:focus {
 .form-buttons button:hover {
     background-color: #404355;
 }
+.form-buttons button:focus {
+    outline: none;
+    background-color: #404355;
+}
 
 .add-container {
     width: 94%;
@@ -88,6 +93,10 @@ form input:focus {
     transition: 0.3s;
 }
 .add-container button:hover{
+    background-color: #1e7c34;
+}
+.add-container button:focus{
+    outline: none;
     background-color: #1e7c34;
 }
 

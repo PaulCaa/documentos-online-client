@@ -32,13 +32,19 @@ export class FindDocumentComponent implements OnInit {
 
   findDocument() {
     let doc: DocumentInterface = this.findDocumentForm.value;
-    this.documentService.find(doc.numero)
-    .subscribe(result => {
-      let data: DocumentInterface[] = result.data;
-      console.log(result.header.message);
-      if(data.length > 0) this.emptyMessage = false;
-      this.results = data;
-    }, error => console.error(error));
+    console.log(doc.numero);
+    // se hace request solo si se ingreso numero de doc
+    if(doc.numero.length > 0){
+      this.documentService.find(doc.numero)
+      .subscribe(result => {
+        let data: DocumentInterface[] = result.data;
+        console.log(result.header.message);
+        if(data.length > 0) this.emptyMessage = false;
+        this.results = data;
+      }, error => console.error(error));
+    } else {
+      alert("Ingrese Número de documento");
+    }
   }
 
   deleteDocument(docNumber: number) {
