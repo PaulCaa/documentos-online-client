@@ -40,7 +40,6 @@ export class LoginService {
         let user: UserInterface = JSON.parse(localStorage.getItem('user'));
         if(user) {
             const token = user['token'];
-            console.log(token);
             logState = true
         }
         return logState;
