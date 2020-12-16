@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../services/login.service';
+import { UserInterface } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +10,31 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  public user: string;
+  public company: string;
+
+  constructor(
+    private router: Router,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit(): void {
+    this.loadUserInfo();
+  }
+
+  loadUserInfo() {
+    let user: UserInterface = JSON.parse(localStorage.getItem('user'));
+    this.user = user['apellido'] + ', ' + user['nombre'];
+    this.company = user['nombreEmpresa'];
+  }
+
+  closeSession() {
+    this.loginService.logout();
+    this.router.navigate(['login']);
+  }
+
+  test(){
+    window.location.reload();
   }
 
 }

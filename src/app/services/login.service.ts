@@ -31,6 +31,9 @@ export class LoginService {
         return this.httpClient.post<LoginResponse>(this.BASE_URL,req, {headers});
     }
 
+    logout() {
+        localStorage.removeItem('user');
+    }
 
     validateLogin(): boolean {
         let logState: boolean = false;

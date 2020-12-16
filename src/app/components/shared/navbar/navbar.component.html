@@ -6,4 +6,11 @@
     <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/sectores']">Sectores</a></li>
     <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/empresas']">Empresas</a></li>
   </ul>
+
+  <div id="session" class="session"><p>{{ user }}</p> 
+    <ul id="menu" class="session-menu">
+      <li>{{ company }}</li>
+      <li (click)="closeSession()">Cerrar sesión</li>
+    </ul>
+  </div>
 </nav>
