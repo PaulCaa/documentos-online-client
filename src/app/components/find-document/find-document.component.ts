@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DocumentsService } from '../../services/documents.services';
-import { CompaniesService } from '../../services/companies.service';
 import { DocumentInterface } from 'src/app/models/document.interface';
-import { CompanyInterface } from '../../models/company.interface';
+import { UserInterface } from '../../models/user.interface';
+import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,40 +14,53 @@ import { Router } from '@angular/router';
 export class FindDocumentComponent implements OnInit {
 
   public findDocumentForm: FormGroup;
-  public companies: CompanyInterface[];
-  public sectors: string[];
   public results: DocumentInterface[];
-  public emptyMessage: boolean = true;
+  public emptyMessage: boolean = false;
 
   constructor(
+    private loginService: LoginService,
     private formBuilder: FormBuilder,
     private documentService: DocumentsService,
-    private companiesService: CompaniesService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.findDocumentForm = this.formBuilder.group({
-      numero: new FormControl('',Validators.required),
-      fecha: new FormControl(''),
-      empresa: new FormControl(''),
-      sector: new FormControl('')
-    });
-    this.loadCompanies();
+    let login: boolean = this.loginService.validateLogin();
+    if(!login) {
+      this.router.navigate(['login']);
+    } else {
+      this.findDocumentForm = this.formBuilder.group({
+        numero: new FormControl('',Validators.required),
+        fecha: new FormControl(''),
+        empresa: new FormControl(''),
+        sector: new FormControl('')
+      });
+      this.listDocumentByCompany();
+    }
+  }
+
+  listDocumentByCompany() {
+    let user: UserInterface = JSON.parse(localStorage.getItem('user'));
+    this.documentService.listDocumentsBy(user['empresaId'])
+    .subscribe(result => {
+      this.results = result.data;
+    },
+    error => this.emptyMessage = true);
   }
 
   findDocument() {
     let doc: DocumentInterface = this.findDocumentForm.value;
-    console.log(doc.numero);
     // se hace request solo si se ingreso numero de doc
     if(doc.numero.length > 0){
       this.documentService.find(doc.numero)
       .subscribe(result => {
         let data: DocumentInterface[] = result.data;
-        console.log(result.header.message);
         if(data.length > 0) this.emptyMessage = false;
+        else this.emptyMessage = true;
         this.results = data;
-      }, error => console.error(error));
+      }, error => {
+        this.emptyMessage = true;
+      });
     } else {
       alert("Ingrese Número de documento");
     }
@@ -55,14 +68,21 @@ export class FindDocumentComponent implements OnInit {
 
   deleteDocument(docNumber: number) {
     if(docNumber == null || docNumber == 0) {
-      console.error("No se puede eliminar documento " + docNumber);
-      alert(`No se puede eliminar documento ${docNumber}, regargue la pagina`);
+      alert(`No se puede eliminar documento ${docNumber}, regargue la pagina y vuelvalo a intentar`);
     } else {
       this.documentService.delete(docNumber)
       .subscribe(result => {
-        console.log(result.header.message)
-      }, error => console.error(error),
-      () => {});
+        if(result.header.resultCode == 'OK'){
+          alert('Documento borrado');
+          window.location.reload;
+        } else {
+          alert(`No se pudo eliminar documento ${docNumber}, regargue la pagina y vuelvalo a intentar`);
+        }
+      },
+      error => {
+        alert('Error: ' + error);
+        window.location.reload;
+      });
     }
   }
 
@@ -80,14 +100,4 @@ export class FindDocumentComponent implements OnInit {
     this.findDocumentForm.reset();
   }
 
-  loadCompanies() {
-    this.companiesService.listCompanies()
-    .subscribe(
-      result => {
-        this.companies = result.data;
-        console.log(this.companies);
-      },
-      error => console.log(error)
-    );
-  }
 }

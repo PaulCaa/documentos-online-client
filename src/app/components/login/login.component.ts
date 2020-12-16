@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { LoginResponse } from './../../models/rest/login-response';
+import { UserInterface } from '../../models/user.interface';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    let login: boolean = this.loginService.validateLogin();
+    if(login){
+      this.router.navigate(['documentos']);
+    }
     this.loginForm = this.formBuilder.group({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -35,18 +40,23 @@ export class LoginComponent implements OnInit {
     input = this.loginForm.value;
     // Se llama al login solo si no se recibe user y pwd vacios
     if(input.username.length > 0  && input.password.length > 0){
-      this.loginService.validateLogin(input.username,input.password)
-      .subscribe(result => {
-        let response: LoginResponse = result;
-        console.log(response);
-        if(response.header.resultCode.toLocaleLowerCase() == 'ok') {
-          this.router.navigate(['documentos']);
-        } else {
-          this.loginFail = true;
-        }
+      this.loginService.login(input.username,input.password)
+      .subscribe(
+        result => {
+          let response: LoginResponse = result;
+          if(response.header.resultCode.toLocaleLowerCase() == 'ok') {
+            let user: UserInterface = response.data[0];
+            localStorage.setItem('user',JSON.stringify(user));
+            this.router.navigate(['documentos']);
+          } else {
+            console.log("error");
+            this.loginFail = true;
+          }
       },
-        error => console.error(error)
-      );
+      error => {
+        console.error(error);
+        this.loginFail = true;
+      });
     } else {
       this.loginFail = true;
     }

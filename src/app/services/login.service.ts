@@ -15,7 +15,7 @@ export class LoginService {
         private httpClient: HttpClient
     ) {}
 
-    validateLogin(user: string, pwd: string): Observable<LoginResponse> {
+    login(user: string, pwd: string): Observable<LoginResponse> {
         const md5 = new Md5();
         let hashPwd = md5.appendStr(pwd).end();
         const headers = {
@@ -28,8 +28,19 @@ export class LoginService {
             'User': user,
             'Password': hashPwd
         }
-        console.log(req);
         return this.httpClient.post<LoginResponse>(this.BASE_URL,req, {headers});
+    }
+
+
+    validateLogin(): boolean {
+        let logState: boolean = false;
+        let user: UserInterface = JSON.parse(localStorage.getItem('user'));
+        if(user) {
+            const token = user['token'];
+            console.log(token);
+            logState = true
+        }
+        return logState;
     }
 
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../services/login.service';
 import { CompaniesService } from '../../services/companies.service';
 import { CompanyInterface } from '../../models/company.interface';
-import { SectorInterface } from '../../models/sector.interface';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company',
@@ -12,14 +12,20 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class CompanyComponent implements OnInit {
 
   public companies: CompanyInterface[];
-  public sectors: SectorInterface[];
 
   constructor(
+    private loginService: LoginService,
+    private router: Router,
     private companiesService: CompaniesService
   ) { }
 
   ngOnInit(): void {
-    this.listCompanies()
+    let login: boolean = this.loginService.validateLogin();
+    if(!login) {
+      this.router.navigate(['login']);
+    } else {
+      this.listCompanies()
+    }
   }
 
 
@@ -27,27 +33,11 @@ export class CompanyComponent implements OnInit {
     this.companiesService.listCompanies()
     .subscribe(
       result => {
-        console.log(result);
-        //let temp: CompanyInterface[] = result.data;
         this.companies = result.data;
-        console.log(this.companies);
       },
-      error => console.log(error),
-      () => console.log('se listaron las empresas')
+      error => console.log(error)
     );
   }
 
-  listSectors(idCompany: number) {
-    if(idCompany > 0) {
-      this.companiesService.listSectors(idCompany)
-      .subscribe(
-        result => {
-          this.sectors = result.data;
-          console.log(this.sectors);
-        },
-        err => console.error(err)
-      );
-    }
-  }
 
 }

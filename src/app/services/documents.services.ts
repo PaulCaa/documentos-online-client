@@ -14,6 +14,16 @@ export class DocumentsService {
         private httpClient: HttpClient
     ) {}
 
+    listDocumentsBy(company: number): Observable<DocumentResponse> {
+        const url = this.BASE_URL + 'empresa/' + company;
+        const headers = {
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': 'http://localhost:5000',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+        }
+        return this.httpClient.get<DocumentResponse>(url,{ headers });
+    }
+
     find(docNumber: string): Observable<DocumentResponse> {
         const url = this.BASE_URL + 'get/';
         const headers = {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { DocumentsService } from 'src/app/services/documents.services';
 import { DocumentInterface } from '../../models/document.interface';
@@ -14,18 +15,24 @@ export class AddDocumentComponent implements OnInit {
   public addDocumentForm: FormGroup;
 
   constructor(
+    private loginService: LoginService,
     private formBuilder: FormBuilder,
     private router: Router,
     private documentsService: DocumentsService
   ) { }
 
   ngOnInit(): void {
-    this.addDocumentForm = this.formBuilder.group({
-      numero: new FormControl('',Validators.required),
-      imgPath: new FormControl('',Validators.required),
-      empresa: new FormControl('',Validators.required),
-      sector: new FormControl('',Validators.required)
-    });
+    let login: boolean = this.loginService.validateLogin();
+    if(!login) {
+      this.router.navigate(['login']);
+    } else{
+      this.addDocumentForm = this.formBuilder.group({
+        numero: new FormControl('',Validators.required),
+        imgPath: new FormControl('',Validators.required),
+        empresa: new FormControl('',Validators.required),
+        sector: new FormControl('',Validators.required)
+      });
+    }
   }
 
   save() {
