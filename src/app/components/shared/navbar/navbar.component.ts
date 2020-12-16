@@ -24,8 +24,10 @@ export class NavbarComponent implements OnInit {
 
   loadUserInfo() {
     let user: UserInterface = JSON.parse(localStorage.getItem('user'));
-    this.user = user['apellido'] + ', ' + user['nombre'];
-    this.company = user['nombreEmpresa'];
+    if(user) {
+      this.user = user['apellido'] + ', ' + user['nombre'];
+      this.company = user['nombreEmpresa'];
+    }
   }
 
   closeSession() {

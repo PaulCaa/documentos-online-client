@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { GuardService } from '../../services/guard.service';
 import { DocumentsService } from '../../services/documents.services';
 import { DocumentInterface } from 'src/app/models/document.interface';
 import { UserInterface } from '../../models/user.interface';
-import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,17 +18,14 @@ export class FindDocumentComponent implements OnInit {
   public emptyMessage: boolean = false;
 
   constructor(
-    private loginService: LoginService,
+    private guardService: GuardService,
     private formBuilder: FormBuilder,
     private documentService: DocumentsService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    let login: boolean = this.loginService.validateLogin();
-    if(!login) {
-      this.router.navigate(['login']);
-    } else {
+    if(this.guardService.canActivate()) {
       this.findDocumentForm = this.formBuilder.group({
         numero: new FormControl('',Validators.required),
         fecha: new FormControl(''),
@@ -58,9 +55,7 @@ export class FindDocumentComponent implements OnInit {
         if(data.length > 0) this.emptyMessage = false;
         else this.emptyMessage = true;
         this.results = data;
-      }, error => {
-        this.emptyMessage = true;
-      });
+      }, error => this.emptyMessage = true);
     } else {
       alert("Ingrese Número de documento");
     }

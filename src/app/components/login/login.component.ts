@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     if(login){
       this.router.navigate(['documentos']);
     } else {
+      this.loginService.logout();
       this.loginForm = this.formBuilder.group({
         username: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required)

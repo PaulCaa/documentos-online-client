@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service';
+import { GuardService } from '../../services/guard.service';
 import { CompaniesService } from '../../services/companies.service';
 import { SectorInterface } from '../../models/sector.interface';
 import { UserInterface } from '../../models/user.interface';
@@ -16,16 +15,12 @@ export class SectorsComponent implements OnInit {
   public userCompany: string;
 
   constructor(
-    private loginService: LoginService,
-    private router: Router,
+    private guardService: GuardService,
     private companiesService: CompaniesService
   ) { }
 
   ngOnInit(): void {
-    let login: boolean = this.loginService.validateLogin();
-    if(!login) {
-      this.router.navigate(['login']);
-    } else {
+    if(this.guardService.canActivate()) {
       this.listSectors();
     }
   }
@@ -36,10 +31,7 @@ export class SectorsComponent implements OnInit {
     this.userCompany = user['nombreEmpresa'];
     this.companiesService.listSectors(user['empresaId'])
     .subscribe(
-      result => {
-        this.sectors = result.data;
-        console.log(this.sectors);
-      },
+      result => this.sectors = result.data,
       err => console.error(err)
     );
   }
