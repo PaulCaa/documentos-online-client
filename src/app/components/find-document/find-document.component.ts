@@ -68,26 +68,27 @@ export class FindDocumentComponent implements OnInit {
 
   deleteDocument(docNumber: number) {
     if(docNumber == null || docNumber == 0) {
-      alert(`No se puede eliminar documento ${docNumber}, regargue la pagina y vuelvalo a intentar`);
+      alert(`No se puede eliminar documento ${docNumber}, vuelvalo a intentar`);
     } else {
       this.documentService.delete(docNumber)
       .subscribe(result => {
         if(result.header.resultCode == 'OK'){
+          //window.location.reload;
           alert('Documento borrado');
-          window.location.reload;
         } else {
-          alert(`No se pudo eliminar documento ${docNumber}, regargue la pagina y vuelvalo a intentar`);
+          //window.location.reload;
+          alert(`No se pudo eliminar documento ${docNumber}, vuelvalo a intentar`);
         }
       },
       error => {
+        //window.location.reload;
         alert('Error: ' + error);
-        window.location.reload;
       });
     }
+    this.router.navigate(['login']);
   }
 
   view(document: DocumentInterface) {
-    console.log(document);
     this.documentService.setDocument(document);
     this.router.navigate(['vista']);
   }

@@ -33,8 +33,4 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
-  test(){
-    window.location.reload();
-  }
-
 }

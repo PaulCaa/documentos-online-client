@@ -50,8 +50,10 @@ export class AddDocumentComponent implements OnInit {
               //this.router.navigate(['documentos/agregar']);
             }
           },
-          err => console.error(err)
-        );
+          err => {
+            console.error(err);
+            alert('Veifique los datos');
+        });
       }
   }
 
