@@ -1,10 +1,33 @@
 <div class="login-container animated fadeIn fast">
   
   <div class="login-area">
-    <form class="animated fadeIn" [formGroup]="loginForm">
+    <form class="animated fadeIn" [formGroup]="loginForm" (ngSubmit)="login()">
       <h1>Login</h1>
-      <input class="input" type="text" formControlName="username" placeholder="Ingrese usuario">
-      <input class="input" type="password" formControlName="password" placeholder="Ingrese contraseña">
+
+      <fieldset>
+        <div class="form-group" [ngClass]="{'has-error': (
+          loginForm.get('username').touched ||
+          loginForm.get('username').dirty &&
+          !loginForm.get('username').valid
+        )}">
+          <input class="input" type="text" id="username" formControlName="username" placeholder="Ingrese usuario" required>
+          <div *ngIf="(loginForm.get('username').touched || loginForm.get('username').dirty && !loginForm.get('username').valid)">
+            <span class="input-error" *ngIf="loginForm.get('username').errors?.required">El campo es requerido</span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': (
+          loginForm.get('password').touched ||
+          loginForm.get('password').dirty &&
+          !loginForm.get('password').valid
+        )}">
+          <input class="input" type="password" id="password" formControlName="password" placeholder="Ingrese contraseña" required>
+          <div *ngIf="(loginForm.get('password').touched || loginForm.get('password').dirty && !loginForm.get('password').valid)">
+            <span class="input-error" *ngIf="loginForm.get('password').errors?.required">El campo es requerido</span>
+          </div>
+        </div>
+      </fieldset>
+
       <button (click)='login()'>Ingresar</button>
       <div *ngIf="loginFail" class="login-error">Usuario o contraseña invalida</div>
     </form>

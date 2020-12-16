@@ -33,17 +33,23 @@ export class LoginComponent implements OnInit {
       password: ''
     }
     input = this.loginForm.value;
-    this.loginService.validateLogin(input.username,input.password)
-    .subscribe(result => {
-      let response: LoginResponse = result;
-      if(response.header.resultCode.toLocaleLowerCase() == 'ok') {
-        this.router.navigate(['documentos']);
-      } else {
-        this.loginFail = true;
-      }
-    },
-      error => console.error(error)
-    );
+    // Se llama al login solo si no se recibe user y pwd vacios
+    if(input.username.length > 0  && input.password.length > 0){
+      this.loginService.validateLogin(input.username,input.password)
+      .subscribe(result => {
+        let response: LoginResponse = result;
+        console.log(response);
+        if(response.header.resultCode.toLocaleLowerCase() == 'ok') {
+          this.router.navigate(['documentos']);
+        } else {
+          this.loginFail = true;
+        }
+      },
+        error => console.error(error)
+      );
+    } else {
+      this.loginFail = true;
+    }
   }
 
 }
