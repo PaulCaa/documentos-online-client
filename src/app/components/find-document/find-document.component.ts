@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DocumentsService } from '../../services/documents.services';
+import { CompaniesService } from '../../services/companies.service';
 import { DocumentInterface } from 'src/app/models/document.interface';
+import { CompanyInterface } from '../../models/company.interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,12 +14,15 @@ import { Router } from '@angular/router';
 export class FindDocumentComponent implements OnInit {
 
   public findDocumentForm: FormGroup;
+  public companies: CompanyInterface[];
+  public sectors: string[];
   public results: DocumentInterface[];
   public emptyMessage: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
     private documentService: DocumentsService,
+    private companiesService: CompaniesService,
     private router: Router
   ) { }
 
@@ -28,6 +33,7 @@ export class FindDocumentComponent implements OnInit {
       empresa: new FormControl(''),
       sector: new FormControl('')
     });
+    this.loadCompanies();
   }
 
   findDocument() {
@@ -74,4 +80,14 @@ export class FindDocumentComponent implements OnInit {
     this.findDocumentForm.reset();
   }
 
+  loadCompanies() {
+    this.companiesService.listCompanies()
+    .subscribe(
+      result => {
+        this.companies = result.data;
+        console.log(this.companies);
+      },
+      error => console.log(error)
+    );
+  }
 }
